@@ -1,0 +1,91 @@
+<!-- templates/dual_game.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双人海龟汤游戏</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>双人海龟汤游戏</h1>
+        
+        <div id="waitingRoom" class="game-section">
+            <h2>等待房间</h2>
+            <div class="room-info">
+                <p>当前用户: <span id="currentUsername">{{ username }}</span></p>
+                <p>房间状态: <span id="roomStatus">等待连接...</span></p>
+                <p>玩家列表:</p>
+                <ul id="playersList"></ul>
+            </div>
+            
+            <div id="hostControls" class="host-controls" style="display: none;">
+                <h3>房主控制面板</h3>
+                <select id="storyDropdown">
+                    <option value="" selected disabled>请选择题目</option>
+                </select>
+                <button id="startGameBtn" disabled>开始游戏</button>
+            </div>
+            
+            <div id="playerControls" class="player-controls">
+                <button id="readyBtn">准备</button>
+                <button id="unreadyBtn" style="display: none;">取消准备</button>
+                <button id="leaveBtn">离开房间</button>
+            </div>
+        </div>
+        
+        <div id="gameRoom" class="game-section" style="display: none;">
+            <div class="game-info">
+                <h2>游戏进行中</h2>
+                <p id="storyTitle"></p>
+                <div id="storySurface" class="story-surface"></div>
+                <p id="currentTurn" class="current-turn"></p>
+            </div>
+            
+            <div id="questionArea" class="question-area">
+                <input type="text" id="questionInput" placeholder="输入你的问题或猜测...">
+                <button id="submitQuestionBtn">提交</button>
+            </div>
+            
+            <div id="gameHistory" class="game-history">
+                <h3>游戏历史</h3>
+                <div id="historyContent"></div>
+            </div>
+        </div>
+        
+        <div id="gameOverScreen" class="game-section" style="display: none;">
+            <h2>游戏结束</h2>
+            <div id="gameResult" class="game-result"></div>
+            <div id="storyComplete" class="story-complete"></div>
+            <button id="playAgainBtn">再来一局</button>
+        </div>
+    </div>
+    
+    <script>
+        // 用户名和游戏变量
+        const username = "{{ username }}";
+        let socket;
+        let isHost = false;
+        let isReady = false;
+        let isMyTurn = false;
+        let gameStarted = false;
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化Socket.IO
+            initSocketIO();
+            
+            // 初始化事件监听器
+            initEventListeners();
+            
+            // 加载故事列表
+            loadStories();
+        });
+        
+        // 将在下一步添加Socket.IO和游戏逻辑
+    </script>
+    <script src="{{ url_for('static', filename='js/dual_game.js') }}"></script>
+</body>
+</html>

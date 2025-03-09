@@ -1,0 +1,33 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海龟汤游戏</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>海龟汤游戏</h1>
+        
+        <div class="game-modes">
+            <a href="{{ url_for('single_game') }}" class="mode-btn">单人游戏</a>
+            <a href="{{ url_for('dual_login') }}" class="mode-btn special">双人游戏</a>
+        </div>
+        
+        <div class="game-intro">
+            <h2>游戏说明</h2>
+            <p>海龟汤是一种推理游戏，玩家通过提问来推理出完整的故事。</p>
+            <p>游戏规则：</p>
+            <ul>
+                <li>开始时，你只能看到"汤面"（故事的表面描述）</li>
+                <li>通过提问，探索故事背后的"汤底"（真相）</li>
+                <li>AI裁判只会回答：是、否、无关</li>
+                <li>单人模式：限制10次提问机会</li>
+                <li>双人模式：一问一答，谁先猜对谁获胜</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
